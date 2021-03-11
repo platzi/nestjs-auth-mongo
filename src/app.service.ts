@@ -17,5 +17,8 @@ export class AppService {
     const name = this.configService.database.name;
     return `Hello World! ${apiKey} ${name}`;
   }
-  getTasks() { }
+  getTasks() {
+    const tasksCollection = this.database.collection('tasks');
+    return tasksCollection.find().toArray();
+  }
 }
