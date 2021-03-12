@@ -10,7 +10,11 @@ export class OrdersService {
   constructor(@InjectModel(Order.name) private orderModel: Model<Order>) {}
 
   findAll() {
-    return this.orderModel.find().exec();
+    return this.orderModel
+      .find()
+      .populate('customer')
+      .populate('products')
+      .exec();
   }
 
   async findOne(id: string) {
