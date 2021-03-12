@@ -17,7 +17,11 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { ParseIntPipe } from '../../common/parse-int.pipe';
 import { MongoIdPipe } from './../../common/mongo-id.pipe';
-import { CreateProductDto, UpdateProductDto, FilterProductsDto } from '../dtos/products.dtos';
+import {
+  CreateProductDto,
+  UpdateProductDto,
+  FilterProductsDto,
+} from '../dtos/products.dtos';
 import { ProductsService } from './../services/products.service';
 
 @ApiTags('products')
