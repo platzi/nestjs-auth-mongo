@@ -15,7 +15,8 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { Public } from '../../auth/decorators/public.decorator';
 
 import { ParseIntPipe } from '../../common/parse-int.pipe';
 import { MongoIdPipe } from './../../common/mongo-id.pipe';
@@ -26,12 +27,13 @@ import {
 } from '../dtos/products.dtos';
 import { ProductsService } from './../services/products.service';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'List of products' })
   getProducts(@Query() params: FilterProductsDto) {
@@ -43,6 +45,7 @@ export class ProductsController {
     return `yo soy un filter`;
   }
 
+  @Public()
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
   getOne(@Param('productId', MongoIdPipe) productId: string) {
